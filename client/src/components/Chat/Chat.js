@@ -3,9 +3,9 @@ import queryString from 'query-string';
 import io from "socket.io-client";
 
 // import TextContainer from '../TextContainer/TextContainer';
-// import Messages from '../Messages/Messages';
-// import InfoBar from '../InfoBar/InfoBar';
-// import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
+import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
 
 // import './Chat.css';
 
@@ -57,23 +57,29 @@ const Chat = ({ location }) => {
 //     });
 // }, []);
 
-//   const sendMessage = (event) => {
-//     event.preventDefault();
+  const sendMessage = (event) => {
+    event.preventDefault();
 
-//     if(message) {
-//       socket.emit('sendMessage', message, () => setMessage(''));
-//     }
-//   }
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
+  }
+
+  console.log(message, messages);
 
   return (
     <div className="outerContainer">
       <h1>Chat</h1>
-      {/* <div className="container">
-          <InfoBar room={room} />
+      <div className="container">
+          <input value={message} 
+          onChange={(event) => setMessage(event.target.value)} 
+          onKeyPress={(event) => event.key === 'Enter' ? sendMessage(event) : null} />
+          <InfoBar />
           <Messages messages={messages} name={name} />
+          {/* This next line exports values for each message setMessage and sendMessage to the input component */}
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
-      <TextContainer users={users}/> */}
+      {/* <TextContainer users={users} /> */}
     </div>
   );
 }
