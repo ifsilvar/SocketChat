@@ -15,6 +15,8 @@ let socket;
 const Chat = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
   const ENDPOINT = 'localhost:5000';
 
 
@@ -39,10 +41,16 @@ const Chat = ({ location }) => {
      } 
   }, [ENDPOINT, location.search]);
   
-//   useEffect(() => {
-//     socket.on('message', message => {
-//       setMessages(messages => [ ...messages, message ]);
-//     });
+
+  //for handling messages
+  useEffect(() => {
+    //connects to code from backend about messages
+    socket.on('message', (message) => {
+      //spreads all messages and adds one more
+      setMessages([ ...messages, message ]);
+    });
+  }, [messages]);
+
     
 //     socket.on("roomData", ({ users }) => {
 //       setUsers(users);
